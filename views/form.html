@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Young Professionals</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
+
+</head>
+<body>
+    <div class="mt-5 font-weight-bold">
+        <div class="d-inline ">
+        <button style="height:35px;width: 40px; margin-left: 4px;" class="btn btn-primary d-inline mb-2"><i class="fa-solid fa-left-long"></i></button>
+        <h2 class="d-inline-block">Add Young Professionals</h2>
+    </div>
+        <hr class="mt-10 !important;background-color: rgb(227, 225, 213);">
+        <form action="/submit" method="POST" class="mt-10" onsubmit="validateForm()">
+            <div class="row d-flex">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="wing">Wing*</label>
+                        <select type="drop-down" class="form-control" id="wing" name="wing" required>
+                            <option value="0">--Select Wing--</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="division">Division*</label>
+                        <select type="text" class="form-control" id="division" name="division" required>
+                            <option value="1"></option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            </select>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Status</h3>
+            <hr style="margin-top:0px !important;background-color:gold;">
+            <div class="form-group d-flex justify-content-between ">
+                <div class="form-check flex-md-row ">
+                    <p class="row align-items-start">Post Status</p>
+                    <input class="form-check-input  " type="radio" name="status" id="vacant" value="Vacant" required>
+                    <label class="form-check-label" for="vacant">Vacant</label>
+                </div>
+                <div class="form-group flex-md-row ">
+                    <label for="vacancyDate">Date of Arise in Vacancy</label>
+                    <input type="date" class="form-control mx-auto p-2 w-100 bg-secondary" id="vacancyDate" name="vacancyDate" required >
+                </div>
+                <div class="form-group flex-md-row">
+                    <label for="advertisedDate">Date of Vacancy Advertised</label>
+                    <input type="date" class="form-control mx-auto p-2 bg-secondary" id="advertisedDate" name="advertisedDate" required style="width: 100%;">
+                </div>
+            </div>
+            <div class="form-group d-flex justify-content-between">
+                <div class="form-check flex-md-row">
+                    <input class="form-check-input" type="radio" name="status" id="filled" value="Filled" required>
+                    <label class="form-check-label" for="filled">Filled</label>
+                </div>
+                
+                <div class="form-group flex-md-row ">
+                <label for="appointmentDate">Date of Appointment</label>
+                <input type="date" class="form-control w-100 p-2 bg-secondary" id="appointmentDate" name="appointmentDate" required>
+                </div>
+            
+            <div class="form-group flex-md-row align-items-start">
+                <label for="candidateDetails " class="d-block">Candidate Details</label>
+                <!-- <textarea class="form-control" id="candidateDetails" name="candidateDetails" rows="3" required></textarea> -->
+                <button style="height:40px;width: 55px;" onclick="" id="candidateDetails" class="btn btn-success"><i class="fa-solid fa-file-import"></i></button>
+            </div>
+        </div>
+        <div class="px-4 ">
+            <button type="submit" class="btn btn-success p-2 px-4">Submit</button>
+            <button type="reset" class="btn btn-danger p-2 px-4">Cancel</button>
+        </div>
+        </form>
+    </div>
+    <script>
+        function validateForm(){
+            const dateOfArise = new Date(document.getElementById('vacancyDate').value);
+            const dateOfAdvertise = new Date(document.getElementById('advertisedDate').value);
+            const dateOfAppointment = new Date(document.getElementById('appointmentDate').value);
+            if(dateOfAdvertise<dateOfArise){
+                alert('Date of Advertised cannot be earlier than date of Arise')
+                return false;
+            }
+            if(dateOfAppointment<dateOfArise){
+                alert('Date of Appointment cannot be earlier than date of Arise');
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
