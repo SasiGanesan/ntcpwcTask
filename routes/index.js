@@ -30,7 +30,8 @@ async(req,res)=>{
     const candidateDetails = req.file.filename;
         try{
             const request = new sql.Request();
-            const insertData=await request.query(`INSERT INTO detailsdb (Wing, Division, VacancyDate, AdvertisedDate, AppointmentDate, CandidateDetails) VALUES('${wing},${division},${vacancyDate},${advertisedDate},${appointmentDate},${candidateDetails})`);
+            const insertData=await request.query(`INSERT INTO detailsdb (Wing, Division, VacancyDate, AdvertisedDate, AppointmentDate, CandidateDetails)
+                 VALUES('${wing},${division},${vacancyDate},${advertisedDate},${appointmentDate},${candidateDetails})`);
             res.redirect('/add-details');
         }catch(err){
             console.error(err);

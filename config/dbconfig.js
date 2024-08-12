@@ -19,4 +19,7 @@ var config = {
 
 
 
-module.exports = config;
+module.exports = {
+    connect: () => sql.connect (config),
+    sql,
+};
