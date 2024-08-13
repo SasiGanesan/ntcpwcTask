@@ -6,11 +6,12 @@
     <title>Add Young Professionals</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/style.css">
     <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
 
 </head>
 <body>
-    <div class="mt-5 font-weight-bold">
+    <div class="container mt-5 font-weight-bold ">
         <div class="d-inline ">
         <button style="height:35px;width: 40px; margin-left: 4px;" class="btn btn-primary d-inline mb-2"><i class="fa-solid fa-left-long"></i></button>
         <h2 class="d-inline-block">Add Young Professionals</h2>
@@ -43,39 +44,39 @@
 
             <h3>Status</h3>
             <hr style="margin-top:0px !important;background-color:gold;">
-            <div class="form-group d-flex justify-content-between ">
-                <div class="form-check flex-md-row ">
+            <div class="form-group d-grid row justify-content-between ">
+                <div class="form-check flex-md-row">
                     <p class="row align-items-start">Post Status</p>
-                    <input class="form-check-input  " type="radio" name="status" id="vacant" value="Vacant" required>
-                    <label class="form-check-label" for="vacant">Vacant</label>
+                    <input class="form-check-input" type="radio" name="status" id="vacant" value="Vacant" required>
+                    <label class="form-check-label " for="vacant">Vacant</label>
                 </div>
-                <div class="form-group flex-md-row ">
+                <div class="form-group row " >
                     <label for="vacancyDate">Date of Arise in Vacancy</label>
-                    <input type="date" class="form-control mx-auto p-2 w-100 bg-secondary" id="vacancyDate" name="vacancyDate" required >
+                    <input type="date" class="form-control mx-auto bg-light" id="vacancyDate" name="vacancyDate" required  style="padding-right: 80px; ">
                 </div>
-                <div class="form-group flex-md-row">
+                <div class="form-group row justify-content-enter " style="padding-right: 120px;">
                     <label for="advertisedDate">Date of Vacancy Advertised</label>
-                    <input type="date" class="form-control mx-auto p-2 bg-secondary" id="advertisedDate" name="advertisedDate" required style="width: 100%;">
+                    <input type="date" class="form-control mx-auto bg-light " id="advertisedDate" name="advertisedDate" required style="padding-right: 100px;">
+                </div>
+            </div> 
+            <div class="form-group d-grid row ">
+                <div class="form-check justify-content-enter">
+                    <input class="form-check-input" type="radio" name="status" id="filled" value="Filled" required >
+                    <label class="form-check-label " for="filled">Filled</label>
+                </div>
+                <div class="form-group row justify-content-enter " style="padding-left: 120px;" >
+                <div class="form-group row justify-content-enter ">
+                <label for="appointmentDate">Date of Appointment</label>
+                <input type="date" class="form-control mx-auto bg-light " id="appointmentDate" name="appointmentDate" required style="padding-right: 100px;">
                 </div>
             </div>
-            <div class="form-group d-flex justify-content-between">
-                <div class="form-check flex-md-row">
-                    <input class="form-check-input" type="radio" name="status" id="filled" value="Filled" required>
-                    <label class="form-check-label" for="filled">Filled</label>
-                </div>
-                
-                <div class="form-group flex-md-row ">
-                <label for="appointmentDate">Date of Appointment</label>
-                <input type="date" class="form-control w-100 p-2 bg-secondary" id="appointmentDate" name="appointmentDate" required>
-                </div>
-            
-            <div class="form-group flex-md-row align-items-start">
-                <label for="candidateDetails " class="d-block">Candidate Details</label>
+            <div class="form-group row justify-content-enter d-block" style="padding-left: 100px;">
+                <label for="candidateDetails" >Candidate Details</label>
                 <!-- <textarea class="form-control" id="candidateDetails" name="candidateDetails" rows="3" required></textarea> -->
-                <button style="height:40px;width: 55px;" onclick="" id="candidateDetails" class="btn btn-success"><i class="fa-solid fa-file-import"></i></button>
+                <button style="height:40px;width: 55px; margin-left: 40px;" onclick="" id="candidateDetails" class="btn btn-success d-block "><i class="fa-solid fa-file-import d-inline-block"></i></button>
             </div>
         </div>
-        <div class="px-4 ">
+        <div p-4>
             <button type="submit" class="btn btn-success p-2 px-4">Submit</button>
             <button type="reset" class="btn btn-danger p-2 px-4">Cancel</button>
         </div>
