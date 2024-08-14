@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Young Professionals</title>
+    <!-- <link rel="stylesheet" href="public/style.css"> -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/public/style.css">
-    <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
-
 </head>
 <body>
     <div class="container mt-5 font-weight-bold ">
@@ -17,7 +15,7 @@
         <h2 class="d-inline-block">Add Young Professionals</h2>
     </div>
         <hr class="mt-10 !important;background-color: rgb(227, 225, 213);">
-        <form action="/submit" method="POST" class="mt-10" onsubmit="validateForm()">
+        <form action="/add-details" method="POST" class="mt-10" enctype="multipart/form-data" onsubmit="return validateForm()">
             <div class="row d-flex">
                 <div class="col-lg-6">
                     <div class="form-group">
@@ -67,7 +65,7 @@
                 <div class="form-group row justify-content-enter " style="padding-left: 95px;" >
                 <div class="form-group row justify-content-enter ">
                 <label for="appointmentDate">Date of Appointment</label>
-                <input type="date" class="form-control mx-auto bg-light " id="appointmentDate" name="appointmentDate" required style="padding-right: 100px;">
+                <input type="date" class="form-control bg-light " id="appointmentDate" name="appointmentDate" required style="padding-right: 100px;">
                 </div>
             </div>
             <div class="form-group row justify-content-enter d-block" style="padding-left: 90px;">
@@ -97,6 +95,7 @@
             }
             return true;
         }
-    </script>
+
+</script>
 </body>
 </html>
