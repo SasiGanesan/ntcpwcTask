@@ -8,7 +8,9 @@ const app = express();
 
 //middleware to parse form data
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public')); // Serves static files from the 'public' directory
+
+app.use('/uploads', express.static('uploads'));// Serves static files from the 'public' directory
+
 app.use(cors());
 app.set('views', './views');
 

@@ -11,11 +11,11 @@
 <body>
     <div class="container mt-5 font-weight-bold ">
         <div class="d-inline ">
-        <button style="height:35px;width: 40px; margin-left: 4px;" class="btn btn-primary d-inline mb-2"><i class="fa-solid fa-left-long"></i></button>
+        <button onclick="location.reload()" style="height:35px;width: 40px; margin-left: 4px;" class="btn btn-primary d-inline mb-2"><i class="fa-solid fa-left-long"></i></button>
         <h2 class="d-inline-block">Add Young Professionals</h2>
     </div>
         <hr class="mt-10 !important;background-color: rgb(227, 225, 213);">
-        <form action="/add-details" method="POST" class="mt-10" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <form method="POST" class="mt-10" enctype="multipart/form-data" onsubmit="return validateForm(event)">
             <div class="row d-flex">
                 <div class="col-lg-6">
                     <div class="form-group">
@@ -31,11 +31,12 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label for="division">Division*</label>
-                        <select type="text" class="form-control" id="division" name="division" required>
-                            <option value="1"></option>
+                        <select type="drop-down" class="form-control" id="division" name="division" required>
+                            <option value="0">--Select Division--</option>
+                            <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
-                            </select>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -48,13 +49,13 @@
                     <input class="form-check-input" type="radio" name="status" id="vacant" value="Vacant" required>
                     <label class="form-check-label " for="vacant">Vacant</label>
                 </div>
-                <div class="form-group row " >
+                <div class="form-group row  padding-right:20px" >
                     <label for="vacancyDate">Date of Arise in Vacancy</label>
-                    <input type="date" class="form-control mx-auto bg-light" id="vacancyDate" name="vacancyDate" required  style="padding-right: 80px; ">
+                    <input type="date" class="form-control mx-auto bg-light" id="vacancyDate" name="vacancyDate" required  >
                 </div>
                 <div class="form-group row justify-content-enter " style="padding-right: 120px;">
                     <label for="advertisedDate">Date of Vacancy Advertised</label>
-                    <input type="date" class="form-control mx-auto bg-light " id="advertisedDate" name="advertisedDate" required style="padding-right: 100px;">
+                    <input type="date" class="form-control mx-auto bg-light " id="advertisedDate" name="advertisedDate" required>
                 </div>
             </div> 
             <div class="form-group d-grid row ">
@@ -62,17 +63,22 @@
                     <input class="form-check-input" type="radio" name="status" id="filled" value="Filled" required >
                     <label class="form-check-label " for="filled">Filled</label>
                 </div>
-                <div class="form-group row justify-content-enter " style="padding-left: 95px;" >
+                <div class="form-group row justify-content-enter " style="padding-left: 172px;" >
                 <div class="form-group row justify-content-enter ">
                 <label for="appointmentDate">Date of Appointment</label>
-                <input type="date" class="form-control bg-light " id="appointmentDate" name="appointmentDate" required style="padding-right: 100px;">
+                <input type="date" class="form-control bg-light " id="appointmentDate" name="appointmentDate" required  style="padding-left: 35px;">
                 </div>
             </div>
-            <div class="form-group row justify-content-enter d-block" style="padding-left: 90px;">
+            <div class="form-group row justify-content-enter d-block" style="padding-left: 170px;">
                 <label for="candidateDetails" >Candidate Details</label>
                 <!-- <textarea class="form-control" id="candidateDetails" name="candidateDetails" rows="3" required></textarea> -->
-                <button style="height:40px;width: 55px; margin-left: 35px;" onclick="" id="candidateDetails" class="btn btn-success d-block "><i class="fa-solid fa-file-import d-inline-block"></i></button>
+                <!-- <button style="height:40px;width: 55px; margin-left: 35px;" id="candidateDetails" class="btn btn-success d-block "><i class="fa-solid fa-file-import d-inline-block"></i></button> -->
+                <input type="file" id="candidateDetails" name="candidateDetails" style="display: none; ">
+                <label for="candidateDetails" style="height:40px;width: 55px; margin-left: 35px;" class="btn btn-success d-block">
+                    <i class="fa-solid fa-file-import d-inline-block"></i>
+                </label>
             </div>
+
         </div>
         <div p-4>
             <button type="submit" class="btn btn-success p-2 px-4">Submit</button>
@@ -80,22 +86,71 @@
         </div>
         </form>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        function validateForm(){
+
+        async function validateForm(event) {
+            event.preventDefault();
+
             const dateOfArise = new Date(document.getElementById('vacancyDate').value);
             const dateOfAdvertise = new Date(document.getElementById('advertisedDate').value);
             const dateOfAppointment = new Date(document.getElementById('appointmentDate').value);
-            if(dateOfAdvertise<dateOfArise){
-                alert('Date of Advertised cannot be earlier than date of Arise')
+
+            if (dateOfAdvertise < dateOfArise) {
+                alert('Date of Advertised cannot be earlier than date of Arise');
                 return false;
             }
-            if(dateOfAppointment<dateOfArise){
+            if (dateOfAppointment < dateOfArise) {
                 alert('Date of Appointment cannot be earlier than date of Arise');
                 return false;
             }
-            return true;
+
+            const formData = await addData(dateOfArise, dateOfAdvertise, dateOfAppointment);
+            return formData ? true : false;
         }
 
-</script>
+        async function addData(dateOfArise, dateOfAdvertise, dateOfAppointment) {
+            console.log(dateOfArise, dateOfAdvertise, dateOfAppointment);
+
+            const formData = new FormData();
+            formData.append('vacancyDate', dateOfArise.toISOString());
+            formData.append('advertiseDate', dateOfAdvertise.toISOString());
+            formData.append('appointmentDate', dateOfAppointment.toISOString());
+            
+            formData.append('wing', document.getElementById('wing').value);
+            formData.append('division', document.getElementById('division').value);
+            formData.append('postStatus', document.querySelector('input[name="status"]:checked').value); 
+
+            const fileInput = document.getElementById('candidateDetails');
+            if (fileInput && fileInput.files.length > 0) {
+                formData.append('candidateDetails', fileInput.files[0]);
+                console.log('File attached:', fileInput.files[0].name);
+            } else {
+                console.log('No file attached.');
+            }
+
+            try {
+                const response = await axios.post("http://localhost:3000/upload", formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                console.log(response);
+                if(response.status === 200)
+                {
+                    alert("Data uploaded successfully");
+                    return true;
+                }else{
+                    alert("Data upload Failed");
+                    return false
+                }
+                
+            } catch (error) {
+                console.error('Error sending data:', error);
+                return false;
+            }
+        }
+
+    </script>
 </body>
 </html>
