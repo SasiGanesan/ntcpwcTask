@@ -41,6 +41,7 @@ router.post('/upload', upload.single('candidateDetails'), async (req, res) => {
         console.log("File uploaded:", req.file.filename);
     } else {
         console.log("No file uploaded");
+        res.send("No file uploaded")
     }
 
     try {
@@ -64,34 +65,3 @@ module.exports = router;
 
 
 
-//Handle the form submission
-// router.post('/', upload.single('candidateDetails'),
-// async(req,res)=>{
-//     const { wing, division, postStatus,vacancyDate,advertiseDate, appointmentDate} = req.body;
-//     console.log("wing, division, postStatus,vacancyDate,advertiseDate, appointmentDate",wing, division, postStatus,vacancyDate,advertiseDate, appointmentDate);
-//     const candidateDetails = `/uploads/${req.file.filename}`;
-    
-//         // Check if file was uploaded
-//         if (!req.file) {
-//             return res.status(400).send("No file uploaded");
-//         }
-//     try{
-
-//              // Connect to the database
-//             await sql.connect();
-
-//             // Create a request to perform operations
-//             const request = new sql.Request();
-
-//             let query = `INSERT INTO detailsdb (wing, division,PostStatus,vacancyDate,advertiseDate, appointmentDate, candidateDetails)
-//                  VALUES('${wing},${division},${postStatus},${vacancyDate},${advertiseDate},${appointmentDate},${candidateDetails})`
-//             const result = await request.query(query);
-//             console.log(result);
-
-//             res.send('Upload successful');
-//             // res.redirect('/add-details');
-//         }catch(err){
-//             console.error('Database connection error:', err);
-//             res.send("Data not inserted")
-//         }
-// });

@@ -6,6 +6,7 @@ const path = require('path');
 const detailsRouter = require('./routes/detailsRouter');
 const app = express();
 
+
 //middleware to parse form data
 app.use(bodyParser.urlencoded({ extended: true }));
 

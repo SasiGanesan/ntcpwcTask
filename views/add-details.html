@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Young Professionals</title>
-    <!-- <link rel="stylesheet" href="public/style.css"> -->
+    <!-- <link rel="stylesheet" href="/public/style.css"> -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
 </head>
@@ -20,7 +20,7 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label for="wing">Wing*</label>
-                        <select type="drop-down" class="form-control" id="wing" name="wing" required>
+                        <select type="drop-down" class="form-control" id="wing" name="wing" required >
                             <option value="0">--Select Wing--</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -66,7 +66,7 @@
                 <div class="form-group row justify-content-enter " style="padding-left: 172px;" >
                 <div class="form-group row justify-content-enter ">
                 <label for="appointmentDate">Date of Appointment</label>
-                <input type="date" class="form-control bg-light " id="appointmentDate" name="appointmentDate" required  style="padding-left: 35px;">
+                <input type="date" class="form-control bg-light " id="appointmentDate" name="appointmentDate"   style="padding-left: 35px;">
                 </div>
             </div>
             <div class="form-group row justify-content-enter d-block" style="padding-left: 170px;">
@@ -88,10 +88,10 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-
         async function validateForm(event) {
             event.preventDefault();
 
+            const status = document.querySelector('input[name="status"]:checked').value;
             const dateOfArise = new Date(document.getElementById('vacancyDate').value);
             const dateOfAdvertise = new Date(document.getElementById('advertisedDate').value);
             const dateOfAppointment = new Date(document.getElementById('appointmentDate').value);
@@ -105,24 +105,38 @@
                 return false;
             }
 
-            const formData = await addData(dateOfArise, dateOfAdvertise, dateOfAppointment);
+            // Check if Wing and Division are selected
+            const wing = document.getElementById('wing');
+            const division = document.getElementById('division');
+            // const status = document.querySelector('input[name="status"]:checked');
+
+            if (wing.value === "0") {
+                alert('Please select a Wing.');
+                return false;
+            }
+            if (division.value === "0") {
+                alert('Please select a Division.');
+                return false;
+            }
+           
+            const formData = await addData(dateOfArise, dateOfAdvertise, dateOfAppointment,status);
             return formData ? true : false;
         }
 
-        async function addData(dateOfArise, dateOfAdvertise, dateOfAppointment) {
-            console.log(dateOfArise, dateOfAdvertise, dateOfAppointment);
-
+        async function addData(dateOfArise, dateOfAdvertise, dateOfAppointment,status) {
+            // console.log(dateOfArise, dateOfAdvertise, dateOfAppointment);
+            // console.log('Sending Status:', status.value); 
             const formData = new FormData();
             formData.append('vacancyDate', dateOfArise.toISOString());
-            formData.append('advertiseDate', dateOfAdvertise.toISOString());
-            formData.append('appointmentDate', dateOfAppointment.toISOString());
+            if (status === 'Vacant') formData.append('advertiseDate', dateOfAdvertise.toISOString());
+            if (status === 'Filled') formData.append('appointmentDate', dateOfAppointment.toISOString());
             
-            formData.append('wing', document.getElementById('wing').value);
-            formData.append('division', document.getElementById('division').value);
-            formData.append('postStatus', document.querySelector('input[name="status"]:checked').value); 
+            formData.append('wing',document.getElementById('wing').value);
+            formData.append('division',document.getElementById('division').value);
+            formData.append('postStatus', status);
 
             const fileInput = document.getElementById('candidateDetails');
-            if (fileInput && fileInput.files.length > 0) {
+            if (fileInput && fileInput.files.length > 0 && !fileInput.disabled){
                 formData.append('candidateDetails', fileInput.files[0]);
                 console.log('File attached:', fileInput.files[0].name);
             } else {
@@ -150,7 +164,18 @@
                 return false;
             }
         }
+         // Enable/Disable form fields based on the selected status
+         document.querySelectorAll('input[name="status"]').forEach((input) => {
+            // console.log('Selected Status:', status.value);
+            input.addEventListener('change', function() {
+                const isVacant = document.getElementById('vacant').checked;
 
+                document.getElementById('vacancyDate').disabled = !isVacant;
+                document.getElementById('advertisedDate').disabled = !isVacant;
+                document.getElementById('appointmentDate').disabled = isVacant;
+                document.getElementById('candidateDetails').disabled = isVacant;
+            });
+        });
     </script>
 </body>
 </html>

@@ -16,3 +16,4 @@ module.exports = {
     connect: () => sql.connect (config),
     sql,
 };
+
