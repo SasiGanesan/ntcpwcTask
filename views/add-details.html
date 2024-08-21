@@ -127,14 +127,17 @@
             // console.log(dateOfArise, dateOfAdvertise, dateOfAppointment);
             // console.log('Sending Status:', status.value); 
             const formData = new FormData();
-            formData.append('vacancyDate', dateOfArise.toISOString());
-            if (status === 'Vacant') formData.append('advertiseDate', dateOfAdvertise.toISOString());
-            if (status === 'Filled') formData.append('appointmentDate', dateOfAppointment.toISOString());
-            
             formData.append('wing',document.getElementById('wing').value);
             formData.append('division',document.getElementById('division').value);
             formData.append('postStatus', status);
 
+            if (status === 'Vacant') {
+            formData.append('vacancyDate', dateOfArise.toISOString());
+            formData.append('advertiseDate', dateOfAdvertise.toISOString());
+        }
+            if (status === 'Filled')
+            formData.append('appointmentDate', dateOfAppointment.toISOString());
+            
             const fileInput = document.getElementById('candidateDetails');
             if (fileInput && fileInput.files.length > 0 && !fileInput.disabled){
                 formData.append('candidateDetails', fileInput.files[0]);
